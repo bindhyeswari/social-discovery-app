@@ -1,0 +1,8 @@
+{
+  "schemas": {
+    "user": {
+      "name": "String",
+      "linkedin_url": "String"
+    }
+  }
+}

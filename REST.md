@@ -6,10 +6,11 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
  - ``` Response 200 ```
  - ``` application/json ```
  - List of all users paginated
+ - Returns ``` [ {user} ] ``` 
  
 # POST /users
  - ``` Response 201 ```
  - ``` application/json ```
- - Input Body - User information
+ - Input Body - user schema 
  - ID of the current user created by the system
 
