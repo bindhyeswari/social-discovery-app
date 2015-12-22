@@ -1,12 +1,12 @@
 #Restful End Points
 
-All endpoints to be used are to be defined in the format - (apiaryblueprint)[https://github.com/apiaryio/api-blueprint#readme]
-List
-    - Success Response Code
-    - MIME type
-    - Input Schema
-    - Output Schema
-    - Optional Description
+All endpoints to be used are to be defined in the format - (apiaryblueprint)[https://github.com/apiaryio/api-blueprint#readme]]
+
+ - Success Response Code
+ - MIME type
+ - Input Schema
+ - Output Schema
+ - Optional Description
     
 
 # GET /users
