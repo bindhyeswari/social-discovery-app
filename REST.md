@@ -1,16 +1,24 @@
 #Restful End Points
 
 All endpoints to be used are to be defined in the format - (apiaryblueprint)[https://github.com/apiaryio/api-blueprint#readme]
+List
+    - Success Response Code
+    - MIME type
+    - Input Schema
+    - Output Schema
+    - Optional Description
+    
 
 # GET /users
  - ``` Response 200 ```
  - ``` application/json ```
+ - Input: none
+ - Output ``` [ {user} ] ``` 
  - List of all users paginated
- - Returns ``` [ {user} ] ``` 
  
 # POST /users
  - ``` Response 201 ```
  - ``` application/json ```
- - Input Body - user schema 
- - ID of the current user created by the system
+ - Input Body - ``` { user } ```
+ - Output - ``` { user } ```
 
