@@ -1,8 +1,75 @@
 {
   "schemas": {
-    "user": {
-      "name": "String",
-      "linkedin_url": "String"
+    "User": {
+      "idUser":"Integer",
+      "username": "String",
+      "email": "String",
+      "password":"String",
+      "birthday":"Date",
+      "gender":"String"
+    },
+    "Master_interest":{
+      "idMaster_interest":"Integer",
+      "description":"String"
+    },
+    "Master_placeOfInterest":{
+      "idplaceOfInterest":"Integer",
+      "placeName":"String",
+      "address":"String"
+    },
+    "interest":{
+      "id_user_interest":"Integer",
+      "userid":"Integer",
+      "interestid":"Integer"
+    },
+    "placeOfInterest":{
+      "id_user_poi":"Integer",
+      "userid":"Integer",
+      "poId":"Integer"
+    },
+    "currentAddress":{
+      "idcurrentAddress":"Integer",
+      "address":"String",
+      "date":"Date",
+      "userid":"Integer"
+    },
+    "events":{
+      "eventsId":"Integer",
+      "replyId":"Integer",
+      "Status":"String"
+    },
+    "Announcements":{
+      "idAnnouncements":"Integer",
+      "description":"String",
+      "currentId":"Integer",
+      "date":"Datetime",
+      "sttime":"Datetime",
+      "edtime":"Datetime",
+      "userid":"Integer",
+      "interestid":"Integer",
+      "maxUserCount":"Integer",
+      "poiId":"Integer",
+      "MatchMandatory":"Boolean"
+    },
+    "AnnouncementsFilter":{
+      "idAnnouncementsFilter":"Integer",
+      "gender":"String",
+      "ageFrom":"Integer",
+      "ageTo":"Integer",
+      "announceId":"Integer"
+    },
+    "Replies":{
+      "idReplies":"Integer",
+      "announcementId":"Integer",
+      "RepliedUserId":"Integer",
+      "replyTime":"Datetime"
+    },
+    "addressHistory":{
+      "idaddressHistory":"Integer",
+      "address":"String",
+      "date":"datetime",
+      "userid":"Integer"
     }
+
   }
 }
