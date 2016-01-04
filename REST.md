@@ -22,3 +22,17 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
  - Input Body - ``` { user } ```
  - Output - ``` { user } ```
 
+# GET/allinterests
+ - ``` Response 200 ```
+ - ``` application/json ```
+ - Input: none
+ - Output ``` [ {interest} ] ```
+ - List of all interests
+
+
+
+
+
+
+
+
