@@ -38,29 +38,28 @@ router.post('/users', function (req, res) {
 router.post('/announcements', function (req, res) {
 
   schema.Announcement.create({
-    idAnnouncements: 6,
-    description: 'go hiking',
+    idAnnouncements: 7,
+    description: 'watching movie',
     currentLocId: 1,
     date: "2016-09-09",
     sttime: "2016-09-09",
     edtime: "2016-09-09",
-    userid: 1,
+    userid: 2,
     interestid: 1,
-    maxUserCount: 7,
-    poiId: 1,
-    MatchMandatory: false
-
+    maxUserCount: 4,
+    poiId: 2,
+    MatchMandatory: false,
+    status:'new'
   }).then(function(announcements) { // note the argument
     schema.AnnouncementFilter.create({
-      idAnnouncementsFilter:1,
-      status:"inprogress",
-      gender:"female",
-      ageFrom:23,
+      idAnnouncementsFilter:2,
+      gender:"male",
+      ageFrom:30,
       ageTo:45
     }).then(function(announcementfilters) { // note the argument
       announcementfilters.setAnnouncement(announcements)
           .then(function(added) {
-            console.log("Success");
+            console.log("Success!!!");
           });
     })
   });
@@ -89,10 +88,10 @@ router.get('/announcementsByDistance',function(){
   })
 });
 
-/*Get announcements by place of interest */
+/* Get announcements by place of interest */
 router.get('/announcementsByPOI',function(){
   console.log("getting annoucements by distance");
- schema.Master_POI.findAll({
+ schema.Master_POI.findAll({ where:{placeName:'AMC Mercado 20'},
     include:[
       {model:schema.Announcement}
     ]
@@ -101,5 +100,41 @@ router.get('/announcementsByPOI',function(){
   })
 });
 
+/* Get announcements by gender */
+router.get('/announcementsByGender',function(){
+  console.log("getting annoucements by gender");
+  schema.AnnouncementFilter.findAll({where:{gender:'female'},
+    include:[
+      {model:schema.Announcement}
+    ]
+  }).then(function(anno){
+    console.log(JSON.stringify(anno))
+  })
+});
+
+
+/* Get announcements by ageFrom */
+router.get('/announcementsByAgeFrom',function(){
+  console.log("getting annoucements by ageFrom");
+  schema.AnnouncementFilter.findAll({ where:{ageFrom:{$gt:20}},
+    include:[
+      {model:schema.Announcement}
+    ]
+  }).then(function(anno){
+    console.log(JSON.stringify(anno))
+  })
+});
+
+/* Get announcements by ageTo */
+router.get('/announcementsByAgeTo',function(){
+  console.log("getting annoucements by ageTo");
+  schema.AnnouncementFilter.findAll({where:{ageTo:{$lt:46}},
+    include:[
+      {model:schema.Announcement}
+    ]
+  }).then(function(anno){
+    console.log(JSON.stringify(anno))
+  })
+});
 
 module.exports = router;

@@ -63,8 +63,8 @@ var Master_POI=sequelize.define('Master_placeOfInterest',{
 Master_POI.hasMany(Announcement,{foreignKey:'poiId'});
 Announcement.belongsTo(Master_POI,{foreignKey:'poiId'});
 
-//AnnouncementFilter.hasMany(Announcement);
-AnnouncementFilter.belongsTo(Announcement,{as: 'Announcement', foreignKey:'announceId'});
+//Announcement.hasOne(AnnouncementFilter);
+AnnouncementFilter.belongsTo(Announcement,{foreignKey:'announceId'});
 /*console.log('GET /user (Sign In)');
     User.findAll({where:{username:'manali' ,$and: {password:'manali'}}}).then(function(user) {
  // console.log("Success!",user);
