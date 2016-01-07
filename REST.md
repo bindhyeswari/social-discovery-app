@@ -9,7 +9,7 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
  - Optional Description
     
 
-# GET /users?{username,password}
+# GET /user
  - ``` Response 200 ```
  - ``` application/json ```
  - Input: {
@@ -19,7 +19,7 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
  - Output ``` [ {user} ] ``` 
  - Sign In(Authenticate User with username and password)
  
-# POST /users
+# POST /user
  - ``` Response 201 ```
  - ``` application/json ```
  - Input Body - ``` { user } ```
@@ -40,7 +40,7 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
  - Output ``` [ {Master_placeOfInterest} ] ```
  - List of all place of interests when user first logs into App
 
-# POST /userinterest?{userid,interestid}
+# POST /selectinterest_poi
  - ``` Response 201 ```
  - ``` application/json ```
  - Input Body - ``` {
@@ -49,7 +49,7 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
                         poiId:''
                 } ```
  - Output - ``` { interest,placeOfInterest } ```
- - Add interests and places ofinterest selected by User
+ - Add interests and places of interest selected by User
 
  # POST/current_location
  - ``` Response 201 ```
@@ -58,49 +58,49 @@ All endpoints to be used are to be defined in the format - (apiaryblueprint)[htt
   - Output - ``` { currentAddress } ```
   -Store Users current location when user logs in
 
-# GET/events
+# GET/announcements
  - ``` Response 200 ```
  - ``` application/json ```
  - Input: {currentAddId}
- - Output ``` [ {events} ] ```
+ - Output ``` [ {announcements} ] ```
  - List of all events sorted by distance
 
- # GET/events
+ # GET/announcements
   - ``` Response 200 ```
   - ``` application/json ```
   - Input: ```{
         sttime:'',
         edtime:''
   } ```
-  - Output ``` [ {events} ] ```
+  - Output ``` [ {announcements} ] ```
   - List of all events sorted by time
 
- # GET/events
+ # GET/announcements
   - ``` Response 200 ```
   - ``` application/json ```
   - Input: ```{ poiId:'' } ```
-  - Output ``` [ {events} ] ```
+  - Output ``` [ {announcements} ] ```
   - List of all events sorted by place of interest
 
- # GET/events
+ # GET/announcements
    - ``` Response 200 ```
    - ``` application/json ```
    - Input: ```{ interestid:'' } ```
-   - Output ``` [ {events} ] ```
+   - Output ``` [ {announcements} ] ```
    - List of all events sorted by interest
 
-  # GET/events
+  # GET/announcements
    - ``` Response 200 ```
    - ``` application/json ```
    - Input: ```{ gender:'' } ```
-   - Output ``` [ {events} ] ```
+   - Output ``` [ {announcements} ] ```
    - List of all events sorted by gender
 
-  # GET/events
+  # GET/announcements
    - ``` Response 200 ```
    - ``` application/json ```
    - Input: ```{ ageFrom:'',ageTo:'' } ```
-   - Output ``` [ {events} ] ```
+   - Output ``` [ {announcements} ] ```
    - List of all events sorted by age limit
 
   # POST/makeannouncement

@@ -33,11 +33,6 @@
       "date":"Date",
       "userid":"Integer"
     },
-    "events":{
-      "eventsId":"Integer",
-      "replyId":"Integer",
-      "Status":"String"
-    },
     "Announcements":{
       "idAnnouncements":"Integer",
       "description":"String",
