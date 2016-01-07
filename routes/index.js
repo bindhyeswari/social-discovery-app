@@ -167,7 +167,7 @@ router.get('/deleteannouncements',function(){
 });
 
 
-/* Amy and Lay code --start */
+/* Amy and Lie code --start */
 
 router.post('/masterInterest',function(req,res){
 
@@ -185,7 +185,7 @@ router.get('/masterinsterests',function(req,res){
 });
 
 router.post('/masterPlaceOfInterest',function(req,res){
-  Master_placeOfInterest.create(req.body).then(function(){
+  schema.Master_placeOfInterest.create(req.body).then(function(){
     res.status(201).json({message:'create master place of interest successfully'});
   },function(){
     res.status(500);
@@ -193,7 +193,7 @@ router.post('/masterPlaceOfInterest',function(req,res){
 });
 
 router.get('/masterplaceofinterest',function(req,res){
-  Master_placeOfInterest.findAll().then(function(result){
+  schema.Master_placeOfInterest.findAll().then(function(result){
     res.status(200).json(result);
   })
 });
@@ -201,7 +201,7 @@ router.get('/masterplaceofinterest',function(req,res){
 router.post('/placeinteresofuser',function(req,res){
   //{user:xxx,placeids:[placeid1, placeid2, placeid3]}
   req.body.placeids.forEach(function(placeid){
-    placeOfInterestByUser.create({
+    schema.placeOfInterestByUser.create({
       userid:req.body.user,
       poiId:placeid
     }).then(function(result){
@@ -215,7 +215,7 @@ router.post('/placeinteresofuser',function(req,res){
 router.post('/interesofuser',function(req,res){
   //{user:xxx,interestids:[interestid1, interestid2, interestid3]}
   req.body.interestids.forEach(function(interestid){
-    InterestByUser.create({
+    schema.InterestByUser.create({
       userid:req.body.user,
       poiId:interestid
     }).then(function(result){
@@ -227,13 +227,13 @@ router.post('/interesofuser',function(req,res){
 });
 
 router.get('/interesofuser',function(req,res){
-  InterestByUser.findAll().then(function(result){
+  schema.InterestByUser.findAll().then(function(result){
     res.status(200).json(result);
   })
 })
 
 router.post('/masterDistance',function(req,res){
-  Master_Distance.create(req.body).then(function(){
+  schema.Master_Distance.create(req.body).then(function(){
     res.status(201).json({message:'create master distance successfully'});
   },function(){
     res.status(500);
@@ -241,14 +241,14 @@ router.post('/masterDistance',function(req,res){
 });
 
 router.post('/locationHistory',function(req,res){
-  LocationHistory.create(req.body).then(function(){
+  schema.LocationHistory.create(req.body).then(function(){
     res.status(201).json({message:'create history successfully'});
   },function(){
     res.status(500);
   })
 });
 
-/* Amy and Lay code --end */
+/* Amy and Lie code --end */
 
 
 module.exports = router;
