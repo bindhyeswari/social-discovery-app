@@ -166,4 +166,89 @@ router.get('/deleteannouncements',function(){
 
 });
 
+
+/* Amy and Lay code --start */
+
+router.post('/masterInterest',function(req,res){
+
+  schema.Master_interest.create(req.body).then(function(){
+    res.status(201).json({message:'create master interest successfully'});
+  },function(){
+    res.status(500);
+  })
+});
+
+router.get('/masterinsterests',function(req,res){
+  schema.Master_interest.findAll().then(function(result){
+    res.status(200).json(result);
+  })
+});
+
+router.post('/masterPlaceOfInterest',function(req,res){
+  Master_placeOfInterest.create(req.body).then(function(){
+    res.status(201).json({message:'create master place of interest successfully'});
+  },function(){
+    res.status(500);
+  })
+});
+
+router.get('/masterplaceofinterest',function(req,res){
+  Master_placeOfInterest.findAll().then(function(result){
+    res.status(200).json(result);
+  })
+});
+
+router.post('/placeinteresofuser',function(req,res){
+  //{user:xxx,placeids:[placeid1, placeid2, placeid3]}
+  req.body.placeids.forEach(function(placeid){
+    placeOfInterestByUser.create({
+      userid:req.body.user,
+      poiId:placeid
+    }).then(function(result){
+      res.status(201).json({message:'successfully!',result:result});
+    },function(error){
+      res.status(500).json({message:'fail!',error:error});
+    })
+  })
+});
+
+router.post('/interesofuser',function(req,res){
+  //{user:xxx,interestids:[interestid1, interestid2, interestid3]}
+  req.body.interestids.forEach(function(interestid){
+    InterestByUser.create({
+      userid:req.body.user,
+      poiId:interestid
+    }).then(function(result){
+      res.status(201).json({message:'successfully!',result:result});
+    },function(error){
+      res.status(500).json({message:'fail!',error:error});
+    })
+  })
+});
+
+router.get('/interesofuser',function(req,res){
+  InterestByUser.findAll().then(function(result){
+    res.status(200).json(result);
+  })
+})
+
+router.post('/masterDistance',function(req,res){
+  Master_Distance.create(req.body).then(function(){
+    res.status(201).json({message:'create master distance successfully'});
+  },function(){
+    res.status(500);
+  })
+});
+
+router.post('/locationHistory',function(req,res){
+  LocationHistory.create(req.body).then(function(){
+    res.status(201).json({message:'create history successfully'});
+  },function(){
+    res.status(500);
+  })
+});
+
+/* Amy and Lay code --end */
+
+
 module.exports = router;

@@ -68,6 +68,78 @@ var Replies=sequelize.define('Replies',{
     acceptenceStatus:Sequelize.STRING
 },{timestamps:false});
 
+/* Amy and Lay code --start */
+
+var Master_interest = sequelize.define('Master_interest',{
+    idMaster_interest:{
+        type:Sequelize.INTEGER
+    },
+    description:{
+        type:Sequelize.STRING
+    }
+});
+
+var Master_placeOfInterest = sequelize.define('Master_placeOfInterest',{
+    idPlaceOfInterest:{
+        type:Sequelize.INTEGER
+    },
+    placeName:{
+        type:Sequelize.STRING
+    },
+    address:{
+        type:Sequelize.STRING
+    }
+});
+
+var Master_Distance = sequelize.define('Master_Distance',{
+    idMaster_Distance:{
+        type:Sequelize.STRING
+    },
+    distance:{
+        type:Sequelize.DOUBLE
+    }
+});
+
+var LocationHistory = sequelize.define('locationHistory',{
+    idaddressHistory:{
+        type:Sequelize.INTEGER
+    },
+    address:{
+        type:Sequelize.STRING
+    },
+    date:{
+        type:Sequelize.DATE
+    },
+    userid:{
+        type:Sequelize.INTEGER
+    }
+});
+
+var placeOfInterestByUser = sequelize.define('placeofinterestbyuser',{
+    id_user_poi:{
+        type:sequelize.INTEGER
+    },
+    userid:{
+        type:sequelize.INTEGER
+    },
+    poiId:{
+        type:sequelize.INTEGER
+    }
+})
+
+var InterestByUser = sequelize.define('interestbyuser',{
+    id_user_interest:{
+        type:sequelize.INTEGER
+    },
+    userid:{
+        type:sequelize.INTEGER
+    },
+    interestId:{
+        type:sequelize.INTEGER
+    }
+})
+/* Amy and Lay code --end */
+
 Master_POI.hasMany(Announcement,{foreignKey:'poiId'});
 Announcement.belongsTo(Master_POI,{foreignKey:'poiId'});
 
@@ -183,6 +255,8 @@ module.exports={
     Announcement:Announcement,
     Master_POI:Master_POI,
     AnnouncementFilter:AnnouncementFilter,
-    Replies:Replies
+    Replies:Replies,
+    Master_interest:Master_interest
+
 }
 
