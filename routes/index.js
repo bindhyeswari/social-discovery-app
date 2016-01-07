@@ -68,13 +68,13 @@ router.post('/announcements', function (req, res) {
 });
 
 /* Get Announcements by time */
-/*router.get('/announcements', function(req, res, next) {
+router.get('/announcements', function(req, res, next) {
   var sttime = req.param('sttime');
   var edtime=req.param('edtime');
   schema.Announcement.findAll({where:{sttime:{$gt:sttime} ,$and: {edtime:{$lt:edtime}}}}).then(function(result) {
     res.status(200).json(result);
   })
-});*/
+});
 
 /* Get Announcements by distance */
 router.get('/announcementsByDistance',function(){
@@ -85,6 +85,10 @@ router.get('/announcementsByDistance',function(){
     ]
   }).then(function(poi){
     console.log(JSON.stringify(poi))
+ //   var json = JSON.parse(poi);
+  //  console.log(json);
+
+
   })
 });
 
@@ -127,7 +131,7 @@ router.get('/announcementsByAgeFrom',function(){
 
 /* Get announcements by ageTo */
 router.get('/announcementsByAgeTo',function(){
-  console.log("getting annoucements by ageTo");
+  console.log("getting announcements by ageTo");
   schema.AnnouncementFilter.findAll({where:{ageTo:{$lt:46}},
     include:[
       {model:schema.Announcement}
@@ -135,6 +139,31 @@ router.get('/announcementsByAgeTo',function(){
   }).then(function(anno){
     console.log(JSON.stringify(anno))
   })
+});
+
+/* Get announcements by interest */
+
+/* Get announcements by reply */
+router.get('/announcementsByReply',function(){
+  console.log("getting announcements by replies");
+  schema.Replies.findAll({
+    include: [
+      {model: schema.Announcement}
+    ]
+  }).then(function(anno){
+    console.log(JSON.stringify(anno))
+  })
+});
+
+/* Delete announcement */
+router.get('/deleteannouncements',function(){
+  console.log("deleting announcements");
+  schema.Announcement.destroy({
+    where: {
+      idAnnouncements: 4
+    },
+  })
+
 });
 
 module.exports = router;

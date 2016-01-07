@@ -59,12 +59,22 @@ var Master_POI=sequelize.define('Master_placeOfInterest',{
     address:Sequelize.STRING
 },{timestamps:false});
 
+var Replies=sequelize.define('Replies',{
+    idReplies:{type:Sequelize.INTEGER,primaryKey: true,autoIncrement: true},
+    announcementId:Sequelize.INTEGER,
+    RepliedUserId:Sequelize.INTEGER,
+    replyTime:Sequelize.DATE,
+    RSVPstatus:Sequelize.STRING,
+    acceptenceStatus:Sequelize.STRING
+},{timestamps:false});
 
 Master_POI.hasMany(Announcement,{foreignKey:'poiId'});
 Announcement.belongsTo(Master_POI,{foreignKey:'poiId'});
 
-//Announcement.hasOne(AnnouncementFilter);
 AnnouncementFilter.belongsTo(Announcement,{foreignKey:'announceId'});
+
+Replies.belongsTo(Announcement,{foreignKey:'announcementId'});
+
 /*console.log('GET /user (Sign In)');
     User.findAll({where:{username:'manali' ,$and: {password:'manali'}}}).then(function(user) {
  // console.log("Success!",user);
@@ -172,6 +182,7 @@ module.exports={
     User:User,
     Announcement:Announcement,
     Master_POI:Master_POI,
-    AnnouncementFilter:AnnouncementFilter
+    AnnouncementFilter:AnnouncementFilter,
+    Replies:Replies
 }
 
