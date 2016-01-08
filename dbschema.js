@@ -137,7 +137,8 @@ var InterestByUser = sequelize.define('interestbyuser',{
     interestId:{
         type:Sequelize.INTEGER
     }
-})
+});
+
 /* Amy and Lie code --end */
 
 Master_POI.hasMany(Announcement,{foreignKey:'poiId'});

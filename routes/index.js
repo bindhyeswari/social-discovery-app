@@ -67,8 +67,16 @@ router.post('/announcements', function (req, res) {
 
 });
 
-/* Get Announcements by time */
+/* Get All Announcements*/
 router.get('/announcements', function(req, res, next) {
+  console.log("getting all annoucements...");
+  schema.Announcement.findAll().then(function(result) {
+    res.status(200).json(result);
+  })
+});
+
+/* Get Announcements by time */
+router.get('/announcementsByTime', function(req, res, next) {
   var sttime = req.param('sttime');
   var edtime=req.param('edtime');
   schema.Announcement.findAll({where:{sttime:{$gt:sttime} ,$and: {edtime:{$lt:edtime}}}}).then(function(result) {
@@ -77,18 +85,25 @@ router.get('/announcements', function(req, res, next) {
 });
 
 /* Get Announcements by distance */
-router.get('/announcementsByDistance',function(){
-  console.log("getting annoucements by distance");
+router.get('/announcementsByDistance',function(req, res, next){
+  console.log("getting annoucements by distance...");
   schema.Announcement.findAll({
     include:[
         {model:schema.Master_POI}
     ]
   }).then(function(poi){
-    console.log(JSON.stringify(poi))
- //   var json = JSON.parse(poi);
-  //  console.log(json);
+    res.status(200).json(poi);
+    var data=JSON.stringify(poi);
+    var parseData= JSON.parse(data);
 
-
+   // console.log(data);
+   // console.log("---------------------------------------");
+   // console.log(parseData);
+   // console.log("---------------------------------------");
+    console.log("size:",parseData.length);
+    for(var x in parseData){
+      console.log(parseData[x].Master_placeOfInterest.address);
+    }
   })
 });
 
@@ -144,14 +159,15 @@ router.get('/announcementsByAgeTo',function(){
 /* Get announcements by interest */
 
 /* Get announcements by reply */
-router.get('/announcementsByReply',function(){
+router.get('/announcementsByReply',function(req,res){
   console.log("getting announcements by replies");
-  schema.Replies.findAll({
+  schema.Replies.findAll({where:{announcementId:1},
     include: [
       {model: schema.Announcement}
     ]
   }).then(function(anno){
-    console.log(JSON.stringify(anno))
+   // console.log(JSON.stringify(anno))
+    res.status(200).json(anno);
   })
 });
 
@@ -249,6 +265,5 @@ router.post('/locationHistory',function(req,res){
 });
 
 /* Amy and Lie code --end */
-
 
 module.exports = router;
