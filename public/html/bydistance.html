@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Announcements By Distance</title>
+    <style>
+        .box{
+            height: 600px;
+            width:900px;
+            border:1px solid black;
+            position: relative;
+            margin-left: 50px;
+        }
+        .circle1{
+            height:150px;
+            width:150px;
+            border-radius: 100%;
+            background-color: white;
+            border:1px solid red;
+            position: absolute;
+            top: 35%;
+            left: 40%;
+            transition: ease 2s;
+        }
+        .circle2{
+            height:250px;
+            width:250px;
+            border-radius: 100%;
+            background-color: white;
+            border:1px solid green;
+            position: absolute;
+            top: 27%;
+            left: 34.5%;
+            transition: ease 2s;
+
+        }
+        .circle3{
+            height:350px;
+            width:350px;
+            border-radius: 100%;
+            background-color: white;
+            border:1px solid blue;
+            top: 19.5%;
+            left: 29%;
+            position: absolute;
+            transition: ease 2s;
+        }
+        .circle4{
+            height:450px;
+            width:450px;
+            border-radius: 100%;
+            background-color: white;
+            border:1px solid orange;
+            top: 12%;
+            left: 23.5%;
+            position: absolute;
+            transition: ease 2s;
+        }
+        .circle5{
+            height:550px;
+            width:550px;
+            border-radius: 100%;
+            background-color: white;
+            border:1px solid brown;
+            top: 4%;
+            left: 18%;
+            position: absolute;
+            transition: ease 2s;
+        }
+        .circle1:hover{
+            height:600px;
+            width:600px;
+            position: absolute;
+            top: 0%;
+            left: 15%;
+        }
+        .circle2:hover{
+            height:600px;
+            width:600px;
+            position: absolute;
+            top: 0%;
+            left: 15%;
+        }
+        .circle3:hover{
+            height:600px;
+            width:600px;
+            position: absolute;
+            top: 0%;
+            left: 15%;
+        }
+        .circle4:hover{
+            height:600px;
+            width:600px;
+            position: absolute;
+            top: 0%;
+            left: 15%;
+        }
+        .circle5:hover{
+            height:600px;
+            width:600px;
+            position: absolute;
+            top: 0%;
+            left: 15%;
+        }
+        .event{
+            height:5%;
+            width:5%;
+            border-radius: 100%;
+            background-color: #4dc71f;
+            margin: 0 auto;
+
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="box">
+        <div id="circle5" class="circle5"></div>
+        <div id="circle4" class="circle4"></div>
+        <div id="circle3" class="circle3"></div>
+        <div id="circle2" class="circle2"></div>
+        <div id="circle1" class="circle1"></div>
+    </div>
+
+</body>
+<script>
+    var arr1=["watching movie","hiking","drinking"];
+    var arr2=["playing tennis","watching movie","hiking"];
+    var arr3=["eating out","playing cricket","drinking"];
+
+    var eventDiv1=document.createElement('div');
+    eventDiv1.className='event';
+    document.getElementById("circle5").appendChild(eventDiv1);
+    $('.circle5').hover(function() {
+        document.getElementById("circle5").appendChild(eventDiv1);
+    });
+
+    var eventDiv2=document.createElement('div');
+    eventDiv2.className='event';
+    document.getElementById("circle5").appendChild(eventDiv2);
+    $('.circle5').hover(function() {
+        document.getElementById("circle5").appendChild(eventDiv2);
+    });
+
+    var eventDiv3=document.createElement('div');
+    eventDiv3.className='event';
+    document.getElementById("circle5").appendChild(eventDiv3);
+
+
+    $('.circle5').hover(function() {
+        document.getElementById("circle5").appendChild(eventDiv3);
+    });
+
+
+    var eventDiv4=document.createElement('div');
+    eventDiv4.className='event';
+    document.getElementById("circle5").appendChild(eventDiv4);
+
+
+    $('.circle5').hover(function() {
+        document.getElementById("circle5").appendChild(eventDiv4);
+    });
+
+</script>
+</html>

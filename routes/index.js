@@ -95,11 +95,6 @@ router.get('/announcementsByDistance',function(req, res, next){
     res.status(200).json(poi);
     var data=JSON.stringify(poi);
     var parseData= JSON.parse(data);
-
-   // console.log(data);
-   // console.log("---------------------------------------");
-   // console.log(parseData);
-   // console.log("---------------------------------------");
     console.log("size:",parseData.length);
     for(var x in parseData){
       console.log(parseData[x].Master_placeOfInterest.address);
