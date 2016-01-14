@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D3 test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<style>
+    .ca, .us {fill: red;}
+    .cu, .br, .mx {fill: blue;}
+    .other {fill: green;}
+
+    .event{
+        height:5%;
+        width:5%;
+        border-radius: 100%;
+        background-color: #4dc71f;
+        content:url("../images/socialimage.png");
+        display: inline;
+    }
+
+    .box{
+        height: 600px;
+        width:900px;
+        border:1px solid black;
+        position: relative;
+        margin: auto;
+    }
+
+    .circleone{
+        background-color: blue;
+        border:1px solid red;
+        position: absolute;
+        transition: ease 2s;
+        overflow:hidden;
+    }
+
+    #chart{
+        height:800px;
+        width:800px;
+        border:1px solid black;
+        border-radius: 100%;
+
+    }
+
+</style>
+<body>
+<div id="chart"></div>
+</body>
+<script>
+   /* var circleData = [
+        { "cx": 470, "cy": 320, "radius": 20, "color" : "pink" },
+        { "cx": 200, "cy": 350, "radius": 50, "color" : "yellow" }
+    ];
+
+    var data=["20","30","40"];
+
+    var container=d3.select("body")
+                .append("svg")
+                .attr("class","box");
+
+    var containerone=container.append("g")
+                 .attr("r",100)
+                .attr("cx",450)
+                .attr("cy",300)
+                .attr("stroke","brown")
+
+
+
+    var circle = container
+                .append("circle")
+                .attr("cx",450)
+                .attr("cy",300)
+                .attr("r",60)
+                .attr("stroke","red")
+                .attr("fill", "transparent")
+              //  .attr("class","circleone");
+
+/!*    var circle1= container
+                    .append("circle")
+                    .attr("r",100)
+                    .attr("cx",450)
+                    .attr("cy",300)
+                    .attr("stroke","blue")
+                    .attr("fill", "transparent");*!/
+
+ //   circle.append(containerone);
+    var groupele=containerone.selectAll("circle")
+            .data(circleData)
+            .enter()
+            .append("circle");
+
+  //  var innercircle=groupele.append("circle").data(circleData);
+
+   var circleAttributes = groupele
+                            .attr("cx", function (d) { return d.cx; })
+                           .attr("cy", function (d) { return d.cy; })
+                             .attr("r", function (d) { return d.radius; })
+                            .style("fill", function (d) { return d.color; });
+*/
+  /*  container.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("r",20)
+            .attr("cx", function(d, i) {
+                return (i * 50) + 25;
+            })
+            .attr("cy",50)
+            .attr("stroke","black")
+            .attr("fill", "blue");*/
+
+
+/*  var eventDiv = new Array();
+  for(var i=0;i<220;i++){
+     eventDiv[i]=document.createElement('div');
+     eventDiv[i].className='event';
+   //  document.getElementById("circle").appendChild(eventDiv[i]);
+      svg.appendChild(eventDiv[i]);
+  }*/
+
+
+     var data = {
+         "countries_msg_vol": {
+             "CA": 100, "US": 170, "CU": 170, "BR": 170, "MX": 170,
+             "CP": 170, "ZX": 170, "CQ": 170, "RR": 170, "NX": 170,
+             "Other": 170
+         }
+     };
+    var diameter = 800;
+
+    var svg = d3.select('#chart').append('svg')
+            .attr('width', 500)
+            .attr('height', 500);
+
+    var bubble = d3.layout.pack()
+            .size([diameter, diameter])
+            .value(function(d) {return d.size;})
+            .padding(0)
+
+    function processData(data) {
+        var obj = data.countries_msg_vol;
+        var newDataSet = [];
+        for(var prop in obj) {
+            newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
+        }
+        return {children: newDataSet};
+    }
+
+    var nodes = bubble.nodes(processData(data))
+            .filter(function(d) { return !d.children; });
+
+    var vis = svg.selectAll('circle')
+            .data(nodes, function(d) { return d.name; });
+
+    vis.enter().append('circle')
+            .attr('transform', function(d) {return 'translate(' + d.x + ',' + d.y + ')'; })
+            .attr('r', function(d) { return d.r; })
+            .attr('class', function(d) { return d.className; });
+</script>
+</html>

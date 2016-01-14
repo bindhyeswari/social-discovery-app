@@ -257,8 +257,8 @@ module.exports={
     Master_POI:Master_POI,
     AnnouncementFilter:AnnouncementFilter,
     Replies:Replies,
-    /* Amy and Lie code --start */
 
+    /* Amy and Lie code --start */
     Master_interest:Master_interest,
     Master_placeOfInterest:Master_placeOfInterest,
     Master_Distance:Master_Distance,

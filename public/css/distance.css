@@ -1,0 +1,191 @@
+.box{
+    height: 600px;
+    width:900px;
+    border:1px solid black;
+    position: relative;
+    margin: auto;
+}
+.circle1{
+    height:150px;
+    width:150px;
+    border-radius: 100%;
+    background-color: white;
+    border:1px solid black;
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    transition: ease 2s;
+    overflow:hidden;
+}
+.circle2{
+    height:250px;
+    width:250px;
+    border-radius: 100%;
+    background-color: white;
+    border:1px solid green;
+    position: absolute;
+    top: 27%;
+    left: 34.5%;
+    transition: ease 2s;
+    overflow:hidden;
+}
+.circle3{
+    height:350px;
+    width:350px;
+    border-radius: 100%;
+    background-color: white;
+    border:1px solid blue;
+    top: 19.5%;
+    left: 29%;
+    position: absolute;
+    transition: ease 2s;
+    overflow:hidden;
+
+}
+.circle4{
+    height:450px;
+    width:450px;
+    border-radius: 100%;
+    background-color: white;
+    border:1px solid orange;
+    top: 12%;
+    left: 23.5%;
+    position: absolute;
+    transition: ease 2s;
+}
+.circle5{
+    height:550px;
+    width:550px;
+    border-radius: 100%;
+    background-color: white;
+    border:1px solid brown;
+    top: 4%;
+    left: 18%;
+    position: absolute;
+    transition: ease 2s;
+}
+
+/*.circle1:hover{
+    height:600px;
+    width:600px;
+    position: absolute;
+    top: 0%;
+    left: 15%;
+}
+.circle2:hover{
+    height:600px;
+    width:600px;
+    position: absolute;
+    top: 0%;
+    left: 15%;
+}
+.circle2:hover ~ .circle1{
+    height:100px;
+    width:100px;
+    position: absolute;
+    top: 38%;
+    left: 42%;
+}
+.circle3:hover ~ .circle1{
+    height:100px;
+    width:100px;
+    position: absolute;
+    top: 38%;
+    left: 42%;
+}
+.circle3:hover ~ .circle2{
+    height:150px;
+    width:150px;
+    position: absolute;
+    top: 34%;
+    left: 39%;
+}
+.circle3:hover{
+    height:600px;
+    width:600px;
+    position: absolute;
+    top: 0%;
+    left: 15%;
+}
+.circle4:hover{
+    height:600px;
+    width:600px;
+    position: absolute;
+    top: 0%;
+    left: 15%;
+}
+.circle4:hover ~ .circle3{
+    height:200px;
+    width:200px;
+    position: absolute;
+    top: 30%;
+    left: 36%;
+}
+.circle4:hover ~ .circle1{
+    height:100px;
+    width:100px;
+    position: absolute;
+    top: 38%;
+    left: 42%;
+}
+.circle4:hover ~ .circle2{
+    height:150px;
+    width:150px;
+    position: absolute;
+    top: 34%;
+    left: 39%;
+}
+.circle5:hover{
+    height:600px;
+    width:600px;
+    position: absolute;
+    top: 0%;
+    left: 15%;
+}
+.circle5:hover ~ .circle1{
+    height:100px;
+    width:100px;
+    position: absolute;
+    top: 38%;
+    left: 42%;
+}
+.circle5:hover ~ .circle2{
+    height:150px;
+    width:150px;
+    position: absolute;
+    top: 34%;
+    left: 39%;
+}
+.circle5:hover ~ .circle3{
+    height:200px;
+    width:200px;
+    position: absolute;
+    top: 30%;
+    left: 36%;
+}
+.circle5:hover ~ .circle4{
+    height:250px;
+    width:250px;
+    position: absolute;
+    top: 26%;
+    left: 33%;
+}*/
+.event{
+    height:5%;
+    width:5%;
+    border-radius: 100%;
+    background-color: #4dc71f;
+    content:url("../images/socialimage.png");
+    display: inline;
+}
+.title{
+    left: 35%;
+    top:-15px;
+    position: absolute;
+}
+
+.ca, .us .zx{fill: red;}
+.cu, .br, .mx {fill: blue;}
+.cp .ww .rr{fill: yellow;}
+.other {fill: green;}
+

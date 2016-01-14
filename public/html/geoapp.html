@@ -1,4 +1,6 @@
+<html>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript">
 
     var geocoder = new google.maps.Geocoder();
@@ -13,6 +15,32 @@
            console.log('Lattitude: '+latitude+' Longitude'+longitude);
         }
     });
+
 </script>
-<html>
+<head>
+<style>
+    .event{
+        height:5%;
+        width:5%;
+        border-radius: 100%;
+        background-color: #4dc71f;
+        content:url("../images/socialimage.png");
+        display: inline;
+    }
+</style>
+</head>
+<body>
+<svg width="200" height="200">
+    <circle id="circle" cx="100" cy="100" r="100" fill="blue" />
+</svg>
+</body>
+<script>
+    var eventDiv = new Array();
+    for(var i=0;i<220;i++){
+        eventDiv[i]=document.createElement('div');
+        eventDiv[i].className='event';
+        document.getElementById("circle").appendChild(eventDiv[i]);
+
+    }
+</script>
 </html>
