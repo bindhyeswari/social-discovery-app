@@ -184,9 +184,9 @@
     position: absolute;
 }
 
-.ca, .us, .cu, .br, .mx{fill: red;}
-.cp, .zx, .cq, .jj, .ng{fill: blue;}
-.tt, .ll, .gg, .ww, .yy{fill: yellow;}
-.ee, .kk, .uu, .ss, .rr{fill:green;}
+.ca, .us, .cu, .br, .mx{fill: green;}
+.cp, .zx, .cq, .jj, .ng{fill: skyblue;}
+.tt, .ll, .gg, .ww, .yy{fill: #bababa;}
+.ee, .kk, .uu, .ss, .rr{fill:orange;}
 
 
