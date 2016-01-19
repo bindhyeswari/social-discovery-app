@@ -41,7 +41,7 @@
 
         node.append("circle")
                 .attr("r", function(d) { return d.r; })
-                .style("fill", function(d) { return color(d.packageName); });
+                .style("fill", function(d) { return color(d.packageName); })
 
         node.append("text")
                 .attr("dy", ".3em")
@@ -57,8 +57,8 @@
         var force = d3.layout.force()
                 .nodes(nodes)
                 .size([diameter,diameter])
-                .gravity(0)
-                .charge(-10)
+                .gravity(0.09)
+               .charge(-5)
              //   .distance(80)
                 .start();
 
@@ -71,7 +71,7 @@
 
 
         force.on("tick",  function tick() {
-            console.log("tick function");
+      //      console.log("tick function");
             parent.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";})
         })
 
