@@ -85,7 +85,7 @@ function draw(diameter,circleid) {
         console.log("dragging");
         d.x = d3.event.x
         d.y = d3.event.y
-        d3.select(this).attr("transform", function(d){return "translate(" + [d.x, d.y ] + ")"});
+        d3.selectAll("circle").attr("transform", function(d){return "translate(" + [d.x, d.y ] + ")"});
       //  d3.select(this).attr("cx", d.x).attr("cy", d.y);
 
     }
@@ -108,29 +108,25 @@ function draw(diameter,circleid) {
         .attr('width', 900)
         .attr('height', 600)
         .attr('id',circleid)
-        .call(zoom);
+      //  .call(zoom);
 
     var jitter=0.5;
 
-    var force = d3.layout.force()
-        .size([900,600])
-        .gravity(0)
-        .charge(0)
-        .on("tick", tick);
 
-
+/*
     function tick(e) {
       //  console.log("tick function");
             var dampenedAlpha=e.alpha * 0.2;
         g.
             each(gravity(dampenedAlpha))
             .each(collide(jitter))
-      /*      .attr('transform', function (d) {
+      /!*      .attr('transform', function (d) {
                 return 'translate(' + d.x + ',' + d.y + ')';
-            })*/
+            })*!/
            .attr("cx", function(d) { return d.x; })
             .attr("cy", function(d) { return d.y; });
     }
+*/
 
 
     function gravity(alpha) {
@@ -205,9 +201,9 @@ function draw(diameter,circleid) {
         });
 
     var g=vis.enter().append("g")
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; })
-        .call(drag);
+        .attr("class","node")
+      //  .attr("transform", function (d) {return "translate(" + d.x + "," + d.y + ")";});
+      .attr("cx", function(d) { return d.x; }).attr("cy", function(d) { return d.y; })
 
     g.append("text")
         .transition().delay(300).duration(1000)
@@ -227,6 +223,24 @@ function draw(diameter,circleid) {
             return d.className;
         })
         .each(bubbleOut);
+
+    var force = d3.layout.force()
+        .nodes(newData)
+        .size([900,600])
+        .gravity(0.05)
+        .charge(10)
+        .on("tick", tick)
+        .start();
+
+
+    var gele = g.selectAll(".node")
+        .data(newData)
+        .call(force.drag);
+
+    function tick() {
+        console.log("tick function");
+        gele.attr("transform", function (d) {return "translate(" + d.x + "," + d.y + ")";});
+    };
 
 
     function bubbleOut(){
