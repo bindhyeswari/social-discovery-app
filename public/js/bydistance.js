@@ -42,14 +42,16 @@ draw(600,'.circle5');*/
 
 
 var data = {
-    "countries_msg_vol": {
+
         "CA": 65, "US": 700, "CU": 55, "BR": 400, "MX": 290,
         "CP": 5, "ZX": 20, "CQ": 200, "jj": 110, "NG": 234,
         "TT": 100, "LL": 10, "GG": 70, "WW": 234, "YY": 280,
         "EE": 2, "KK": 5, "UU": 5, "SS": 90, "RR": 8
-    }
+
 };
 
+var maxRadius=12;
+var padding=6;
 
 $(window).load(function() {
     console.log("on load function...");
@@ -75,24 +77,16 @@ function draw(diameter,circleid) {
         console.log("drag started");
         d3.event.sourceEvent.stopPropagation();
         d3.select(this).classed("dragging", true);
-      //  force.start();
-       // g.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+     //   force.start();
 
     }
 
     function dragged(d) {
         console.log("dragging");
-      //  d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
         d.x = d3.event.x
         d.y = d3.event.y
-      //  console.log(d.x+' '+ d.y);
-        cx= d.x;
-        cy= d.y;
         d3.select(this).attr("transform", function(d){return "translate(" + [d.x, d.y ] + ")"});
-      /*  d3.select(this).attr("cx",function(d){return d.x});
-        d3.select(this).attr("cy",function(d){return d.y});
-        d3.select(this).attr("class",function(d){return d.className});*/
-     //   force.start();
+      //  d3.select(this).attr("cx", d.x).attr("cy", d.y);
 
     }
 
@@ -116,15 +110,67 @@ function draw(diameter,circleid) {
         .attr('id',circleid)
         .call(zoom);
 
+    var jitter=0.5;
 
-    /*   var force = d3.layout.force()
-           .charge(-120)
-           .gravity(0)
-           .size([900,600]);*/
+    var force = d3.layout.force()
+        .size([900,600])
+        .gravity(0)
+        .charge(0)
+        .on("tick", tick);
 
-/*    force
-        .nodes(data)
-        .start();*/
+
+    function tick(e) {
+      //  console.log("tick function");
+            var dampenedAlpha=e.alpha * 0.2;
+        g.
+            each(gravity(dampenedAlpha))
+            .each(collide(jitter))
+      /*      .attr('transform', function (d) {
+                return 'translate(' + d.x + ',' + d.y + ')';
+            })*/
+           .attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+    }
+
+
+    function gravity(alpha) {
+    //    console.log("gravity function");
+        return function(d) {
+            d.x += (d.cx - d.x)  * alpha;
+            d.y += (d.cy - d.y) * alpha;
+        }
+    };
+
+
+    function collide(alpha) {
+    //    console.log("collide function");
+
+        var quadtree = d3.geom.quadtree(data);
+        return function(d) {
+        //    console.log(d.size);
+            var r = d.size + maxRadius + padding,
+                nx1 = d.x - r,
+                nx2 = d.x + r,
+                ny1 = d.y - r,
+                ny2 = d.y + r;
+            quadtree.visit(function(quad, x1, y1, x2, y2) {
+                if (quad.point && (quad.point !== d)) {
+                    var x = d.x - quad.point.x,
+                        y = d.y - quad.point.y,
+                        l = Math.sqrt(x * x + y * y),
+                        r = d.size + quad.point.size;
+                    if (l < r) {
+                        l = (l - r) / l * alpha;
+                        d.x -= x *= l;
+                        d.y -= y *= l;
+                        quad.point.x += x;
+                        quad.point.y += y;
+                    }
+                }
+                return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+            });
+        };
+    }
 
     var bubble = d3.layout.pack()
         .size([diameter, diameter])
@@ -137,7 +183,7 @@ function draw(diameter,circleid) {
         .padding(0);
 
     function processData(data) {
-        var obj = data.countries_msg_vol;
+        var obj = data;
         var newDataSet = [];
         for (var prop in obj) {
             newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
@@ -145,7 +191,10 @@ function draw(diameter,circleid) {
         return {children: newDataSet};
     }
 
-    var nodes = bubble.nodes(processData(data))
+    var newData=processData(data);
+
+
+    var nodes = bubble.nodes(newData)
         .filter(function (d) {
             return !d.children;
         });
@@ -155,14 +204,10 @@ function draw(diameter,circleid) {
             return d.name;
         });
 
-
-
     var g=vis.enter().append("g")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .call(drag)
-
-
+        .call(drag);
 
     g.append("text")
         .transition().delay(300).duration(1000)
@@ -183,15 +228,28 @@ function draw(diameter,circleid) {
         })
         .each(bubbleOut);
 
+
     function bubbleOut(){
         var circle= g.selectAll('circle')
             .transition().delay(300).duration(1000)
             .attr("r",function (d) { return d.r; })
     }
 
- /*   force.on("tick", function() {
-        console.log("force fn");
-        g.attr("cx", function(d) { return d.x; })
-        g.attr("cy", function(d) { return d.y; })
-    });*/
+
+
+
+    /*
+     g.on("mouseover",function(d){
+     console.log("mouse over");
+     });
+     */
+
+    /*
+     g.on("mouseout",function(d){
+     console.log("mouse out");
+     });
+     */
+
+
+
 }

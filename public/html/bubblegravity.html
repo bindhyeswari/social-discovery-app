@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+</head>
+<style>
+
+    .CA, .US, .cu, .br, .mx{fill: lightgreen;}
+    .CP, .zx, .cq, .jj, .ng{fill: skyblue;}
+    .TT, .ll, .gg, .ww, .yy{fill: #bababa;}
+    .EE, .kk, .uu, .ss, .rr{fill:orange;}
+</style>
+<body>
+
+</body>
+<script>
+    var width = 960, height = 500;
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "bubble");
+
+    var bubble = d3.layout.pack()
+            .sort(null)
+            .size([width, height])
+            .padding(1.5);
+
+    d3.json("../js/test.json",function(error,root){
+        if (error) throw error;
+     //   console.log(getData(root));
+
+        var node = svg.selectAll(".node")
+                .data(bubble.nodes(processData(root)).filter(function (d) {return !d.children;}))
+
+                .enter().append("g")
+                .attr("class", "node")
+                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+        node.append("circle")
+                .attr("r", function(d) { return d.value; })
+                .attr("stroke","black")
+                .attr("fill", function(d) { return "transparent"; });
+
+        node.append("text")
+                .attr("dy", "3em")
+                .style("text-anchor", "middle")
+                .text(function(d) { return d.name; });
+
+
+    });
+
+    function processData(data) {
+        var obj = data;
+        var newDataSet = [];
+        for (var prop in obj) {
+            newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
+        }
+        return {children: newDataSet};
+    }
+
+ //   d3.select(self.frameElement).style("height", diameter + "px");
+
+</script>
+</html>
