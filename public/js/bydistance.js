@@ -18,15 +18,15 @@ var width=900,height=600;
 
 $(window).load(function() {
     console.log("on load function...");
-   /* d3.json("../js/test.json",function(error,root) {
+    d3.json("../js/test.json",function(error,root) {
         if (error) throw error;
         draw(root);
-    });*/
-    draw();
+    });
+  //  draw();
 
 });
 
-function draw() {
+function draw(root) {
   //  console.log("diameter of bubble "+diameter);
 
     var drag = d3.behavior.drag()
@@ -84,18 +84,21 @@ function draw() {
         var obj = data;
         var newDataSet = [];
         for (var prop in obj) {
-            newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
+            newDataSet.push({name: obj[prop].name, className: obj[prop].name.toLowerCase(), size: obj[prop].size});
         }
         return {children: newDataSet};
     };
 
 
-    var newData=processData(data);
+    var newData=processData(root);
+   // var newData=processData();
 
     var nodes = bubble.nodes(newData)
         .filter(function (d) {
             return !d.children;
         });
+
+    console.log(nodes);
 
     var vis = svg.selectAll('circle')
         .data(nodes, function (d) {
@@ -122,7 +125,10 @@ function draw() {
 
     var circle=g.append('circle')
      //   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-        .attr("r", function (d) { return d.r/8; })
+        .attr("r", function (d) {
+
+            return d.r/8;
+        })
         .attr('fill-opacity', function (d) {
             return 0.75;
         })
