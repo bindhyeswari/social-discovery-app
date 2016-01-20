@@ -1,18 +1,18 @@
 [
   {
     "name": "CA",
-    "size": 10
+    "size": 100
   },
   {
     "name": "CP",
-    "size": 20
+    "size": 200
   },
   {
     "name": "TT",
-    "size": 30
+    "size": 300
   },
   {
     "name": "EE",
-    "size": 40
+    "size": 400
   }
 ]

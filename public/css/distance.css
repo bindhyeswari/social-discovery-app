@@ -184,9 +184,12 @@
     position: absolute;
 }
 
-.ca, .us, .cu, .br, .mx{fill: lightgreen;}
-.cp, .zx, .cq, .jj, .ng{fill: skyblue;}
-.tt, .ll, .gg, .ww, .yy{fill: #bababa;}
-.ee, .kk, .uu, .ss, .rr{fill:orange;}
+.ca, .us, .cu, .br, .mx{fill: #ffb536;}
+.cp, .zx, .cq, .jj, .ng{fill: #4dabff;}
+.tt, .ll, .gg, .ww, .yy{fill: #dd4bd2;}
+.ee, .kk, .uu, .ss, .rr{fill: #1dee97;}
+.current{fill:red}
+
+
 
 

@@ -7,19 +7,27 @@ var data = {
         "CA": 65, "US": 700, "CU": 55, "BR": 400, "MX": 290,
         "CP": 5, "ZX": 20, "CQ": 200, "jj": 110, "NG": 234,
         "TT": 100, "LL": 10, "GG": 70, "WW": 234, "YY": 280,
-        "EE": 2, "KK": 5, "UU": 5, "SS": 90, "RR": 8
+        "EE": 2, "KK": 5, "UU": 5, "SS": 90, "RR": 8,"current":40
+
 };
 
 var maxRadius=12;
 var padding=6;
 
+var width=900,height=600;
+
 $(window).load(function() {
     console.log("on load function...");
-    draw(600,'.circle1');
+   /* d3.json("../js/test.json",function(error,root) {
+        if (error) throw error;
+        draw(root);
+    });*/
+    draw();
+
 });
 
-function draw(diameter,circleid) {
-    console.log("diameter of bubble "+diameter);
+function draw() {
+  //  console.log("diameter of bubble "+diameter);
 
     var drag = d3.behavior.drag()
         .origin(function(d) { return d; })
@@ -32,7 +40,6 @@ function draw(diameter,circleid) {
         d3.event.sourceEvent.stopPropagation();
         d3.select(this).classed("dragging", true);
      //   force.start();
-
     }
 
     function dragged(d) {
@@ -40,8 +47,7 @@ function draw(diameter,circleid) {
         d.x = d3.event.x
         d.y = d3.event.y
         d3.selectAll("circle").attr("transform", function(d){return "translate(" + [d.x, d.y ] + ")"});
-      //  d3.select(this).attr("cx", d.x).attr("cy", d.y);
-
+        d3.selectAll("text").attr("transform", function(d){return "translate(" + [d.x, d.y ] + ")"});
     }
 
     function dragended(d) {
@@ -49,6 +55,7 @@ function draw(diameter,circleid) {
         d3.select(this).classed("dragging", false);
     }
 
+/*
     var zoom = d3.behavior.zoom()
         .scaleExtent([1, 10])
         .on("zoom", zoomed);
@@ -57,17 +64,14 @@ function draw(diameter,circleid) {
         console.log("zooming...");
         g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     }
+*/
 
-    var svg = d3.select(circleid).append('svg')
-        .attr('width', 900)
-        .attr('height', 600)
-        .attr('id',circleid)
-        .call(zoom);
-
-    var jitter=0.5;
+    var svg = d3.select(".box").append('svg')
+        .attr('width', width)
+        .attr('height', height);
 
     var bubble = d3.layout.pack()
-        .size([900, 600])
+        .size([width, height])
         .sort(function(a, b) {
             return -(a.value - b.value);
         })
@@ -83,10 +87,10 @@ function draw(diameter,circleid) {
             newDataSet.push({name: prop, className: prop.toLowerCase(), size: obj[prop]});
         }
         return {children: newDataSet};
-    }
+    };
+
 
     var newData=processData(data);
-
 
     var nodes = bubble.nodes(newData)
         .filter(function (d) {
@@ -100,20 +104,24 @@ function draw(diameter,circleid) {
 
     var g=vis.enter().append("g")
         .attr("class","node")
-    //    .attr("transform", function (d) {return "translate(" + d.x + "," + d.y + ")";});
-    //     .attr("cx", function(d) { return d.x; }).attr("cy", function(d) { return d.y; })
+      //  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      /*  .on("dblclick",function(d){
+            console.log("double clicked", d.name)
+            d.x= d.x/2;
+            d.y= d.y/2;
+        }).attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+*/
+    // .call(zoom);
+
 
     g.append("text")
+      //  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
         .transition().delay(300).duration(1000)
-     //   .attr("x",function(d){return d.x-10})
-    //    .attr("y",function(d){return d.y })
-        .text(function(d){return d.name});
+        .text(function(d){return d.name})
+
 
     var circle=g.append('circle')
-      //   .attr("cx", function(d) { return d.x; }).attr("cy", function(d) { return d.y; })
-     /*   .attr('transform', function (d) {
-            return 'translate(' + d.x + ',' + d.y + ')';
-        })*/
+     //   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
         .attr("r", function (d) { return d.r/8; })
         .attr('fill-opacity', function (d) {
             return 0.75;
@@ -126,19 +134,23 @@ function draw(diameter,circleid) {
 
     var force = d3.layout.force()
         .nodes(nodes)
-        .size([900,600])
-        .gravity(0.1)
-      //  .charge(0.9)
+        .size([width,height])
+       // .gravity(0.1)
+      //   .charge(0.9)
         .on("tick", tick)
         .start();
 
 
-     var gele = svg.selectAll("g").data(nodes).call(force.drag);
+     var gele = svg.selectAll("g").data(nodes)
+                .call(force.drag)
+             //   .call(drag);
+
+
 
     function tick(e) {
         gele
-            .each(gravity(.2 * e.alpha))
-            .each(collide(.5))
+          //.each(gravity(0.2*e.alpha))
+           .each(collide(1))
             .attr("transform", function (d) {
                return "translate(" + d.x + "," + d.y + ")";
            })
@@ -190,18 +202,15 @@ function draw(diameter,circleid) {
     }
 
 
-    /*
-     g.on("mouseover",function(d){
-     console.log("mouse over");
-     });
-     */
 
-    /*
+   /*  g.on("mouseover",function(d){
+         console.log("mouse over");
+     });
+
+
      g.on("mouseout",function(d){
      console.log("mouse out");
-     });
-     */
-
+     });*/
 
 
 }
