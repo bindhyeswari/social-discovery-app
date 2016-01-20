@@ -48,35 +48,35 @@
                 .style("text-anchor", "middle")
                 .text(function(d) { return d.className.substring(0, d.r / 3); });
 
-      //  console.log(nodes);
-        var nodeArray = new Array();
-        for(n in nodes){
-            nodeArray.push(n);
-        }
-
         var force = d3.layout.force()
                 .nodes(nodes)
                 .size([diameter,diameter])
-                .gravity(0.09)
-               .charge(-5)
-             //   .distance(80)
+                .gravity(0.1)
+                .charge(-5)
+                .on("tick",  function tick(e) {
+                    //   console.log("tick fn")
+                    parent
+                            .each(gravity(.2 * e.alpha))
+                            .each(collide(.5,nodes))
+                            .attr("transform", function (d) {
+                                return "translate(" + d.x + "," + d.y + ")";
+                            })
+
+
+                })
                 .start();
 
-
-        var parent=svg.selectAll("g.node")
+        var parent=svg.selectAll("g")
                 .data(nodes)
                 .call(force.drag);
 
         console.log(parent);
 
-
-        force.on("tick",  function tick() {
-      //      console.log("tick function");
-            parent.attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";})
-        })
-
-
     });
+
+
+
+
 
     // Returns a flattened hierarchy containing all leaf nodes under the root.
     function classes(root) {
@@ -91,11 +91,13 @@
         return {children: classes};
     }
 
+
+
     function gravity(alpha) {
     //    console.log("gravity function");
         return function(d) {
-            d.x += (d.cx - d.x)  * alpha;
-            d.y += (d.cy - d.y) * alpha;
+            d.x += (d.px - d.x)  * alpha;
+            d.y += (d.py - d.y) * alpha;
         }
     };
 

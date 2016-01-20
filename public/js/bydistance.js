@@ -123,52 +123,33 @@ function draw(diameter,circleid) {
         })
         .each(bubbleOut);
 
+
     var force = d3.layout.force()
         .nodes(nodes)
         .size([900,600])
-        .gravity(0.009)
+        .gravity(0.1)
       //  .charge(0.9)
         .on("tick", tick)
         .start();
 
 
-    var gele = svg.selectAll("g")
-        .data(nodes)
-        .call(force.drag);
-
-   /* function tick() {
-        console.log("tick function");
-        gele.attr("transform", function (d) {return "translate(" + d.x + "," + d.y + ")";});
-    };*/
-
+     var gele = svg.selectAll("g").data(nodes).call(force.drag);
 
     function tick(e) {
-     //   console.log("tick fn")
         gele
-         //   .each(gravity(.2 * e.alpha))
-        //     .each(collide(.5))
+            .each(gravity(.2 * e.alpha))
+            .each(collide(.5))
             .attr("transform", function (d) {
                return "translate(" + d.x + "," + d.y + ")";
            })
-           .attr("cx", function (d) {
-                return d.x;
-            })
-            .attr("cy", function (d) {
-                return d.y;
-            })
 
     }
-    console.log(gele.data);
 
     // Move nodes toward cluster focus.
     function gravity(alpha) {
-      //  console.log("gravity fn");
         return function (d) {
-        //  console.log(d.cy+" "+ d.cx);
-
-            d.y += (d.cy - d.y) * alpha;
-            d.x += (d.cx - d.x) * alpha;
-       //     console.log(d.y+" "+ d.x);
+            d.y += (d.py - d.y) * alpha;
+            d.x += (d.px - d.x) * alpha;
         };
 
     }
